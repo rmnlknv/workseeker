@@ -1,0 +1,2 @@
+class Jobseeker < User
+end
