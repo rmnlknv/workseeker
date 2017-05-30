@@ -1,0 +1,17 @@
+<% @page_title = "New Vacancy" %>
+
+<%= link_to("<< Back to List", {:action => 'index'}) %>
+
+<div>
+  <h2>Create Vacancy</h2>
+
+  <%= form_for(:vacancy, :url => {:action => 'create'}) do |f| %>
+
+    <%= render(:partial => "form", :locals => {:f => f}) %>
+
+    <div>
+      <%= submit_tag("Create Vacancy") %>
+    </div>
+
+  <% end %>
+</div>

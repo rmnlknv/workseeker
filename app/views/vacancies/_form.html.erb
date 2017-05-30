@@ -1,0 +1,18 @@
+<table summary="Vacancy form fields">
+  <tr>
+    <th><%= f.label(:title, "Title") %></th>
+    <td><%= f.text_field(:title) %></td>
+  </tr>
+  <tr>
+    <th><%= f.label(:city, "City") %></th>
+    <td><%= f.text_field(:city) %></td>
+  </tr>
+  <tr>
+    <th><%= f.label(:description) %></th>
+    <td><%= f.text_area(:description) %></td>
+  </tr>
+  <tr>
+    <th><%= f.label(:category, "") %></th>
+    <td><%= f.select(:category, @categories.map {|c| c.name }) %></td>
+  </tr>
+</table>

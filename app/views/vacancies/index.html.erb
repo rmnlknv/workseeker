@@ -1,0 +1,22 @@
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">List of all vacancies</div>
+  <div class="panel-body">
+    <p>Here you can observe all vacancies, that are present on site.</p>
+  </div>
+
+  <!-- Table -->
+  <table class="table">
+    ...
+  </table>
+</div>
+
+<h1>List of your vacancies</h1>
+  <% @vacancies.each do |vacancy| %>
+  <div>
+  	<%= vacancy.title %>
+  	<%= vacancy.city %>
+  	<%= vacancy.description %>
+  	<%= vacancy.category %>
+  </div>
+  <% end %>
