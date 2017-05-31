@@ -24,6 +24,9 @@ gem 'coffee-rails', '~> 4.2'
 #devise for authorization
 gem 'devise'
 
+#pagination
+gem 'will_paginate'
+
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks

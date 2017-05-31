@@ -8,5 +8,7 @@ Rails.application.routes.draw do
 	get '/vacancies/:id', to: 'vacancies#show', as: 'vacancy'
 	get '/employers/:id', to: 'employers#show', as: 'employer'
 
+	get '/candidates', to: 'jobseekers#index'
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

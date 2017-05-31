@@ -4,8 +4,17 @@ class VacanciesController < ApplicationController
   end
 
   def list
-    @vacancies = Vacancy.all.order('vacancies.created_at DESC')
+    @min_salary_value = Vacancy.minimum(:salary)
+    @max_salary_value = Vacancy.maximum(:salary)
+
+    #@vacancies = Vacancy.all
+    @vacancies = Vacancy.where(nil).paginate(page: params[:page], per_page: 2).order('vacancies.created_at DESC') # creates an anonymous scope
+    @vacancies = @vacancies.salary(params[:min_salary], params[:max_salary]) if params[:min_salary].present? && params[:max_salary].present?
+    @vacancies = @vacancies.city(params[:city]) if params[:city].present?
+    @vacancies = @vacancies.category(params[:category].downcase) if params[:category].present?
+    #@vacancies = Vacancy.all.order('vacancies.created_at DESC')
   end
+
 
   def new
     @vacancy = Vacancy.new
@@ -32,7 +41,7 @@ end
   private
 
     def vacancy_params
-      params.require(:vacancy).permit(:title, :city, :description, :category)
+      params.require(:vacancy).permit(:title, :city, :description, :category, :salary)
     end
 
 =begin

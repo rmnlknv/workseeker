@@ -2,13 +2,51 @@
 	<div class="row">
 		<div class="col-md-3">
 	 	    <h3>Filters by city, salary, technologies</h3>
+			<%= form_tag("/vacancies", method: "get") do %>
+			<br>
+			  <div class="form-group">
+			    <%= label_tag :min_salary, "Salary range:" %>
+			  </div>
+
+			  <div class="form-group"> 
+			        <%= text_field_tag :min_salary, @min_salary_value, id: 'min_salary', class: 'form-control', style: "width: 100px; display: inline" %> -   
+			        <%= text_field_tag :max_salary, @max_salary_value, id: 'max_salary', class: 'form-control', style: "width: 100px; display: inline" %>      
+			  </div>
+			  
+ 
+			  <div class="form-group" id="slider-range"></div>
+
+			<br>
+			  <div class="form-group">
+			  <%= label_tag :city, "City:" %>
+			  <%= text_field_tag :city, nil, class: 'form-control' %>
+			  </div>
+
+			<br>
+			  <div class="form-group">
+			  <%= label_tag :category, "Category:" %>
+			  <%= text_field_tag :category, nil, class: 'form-control' %>
+			  </div>
+
+
+
+			  <div class="form-group text-center">
+			  	<%= submit_tag "Search", class: 'btn btn-success' %>
+			  </div>
+			<% end %>
+
+
+
 	 	</div>
-	    <div class="col-md-6">
+
+	    <div class="col-md-8">
 			<h1>Vacancies</h1>
 	  		<% @vacancies.each do |vacancy| %>
 	  		    <div class="panel panel-default">
 			     <div class="panel-heading">
-			        <h3 class="panel-title"><%= link_to vacancy.title, vacancy %></h3>
+			        <div class="panel-title">
+			        	<%= link_to vacancy.title, vacancy %> <span class="pull-right salary"><%= vacancy.salary %>$</span>
+			        </div>
 			      </div>
 			      <div class="panel-body">
 			      	<div class="row">
@@ -33,6 +71,32 @@
 			      </div>
 			    </div>
 	  		<% end %>
+
+	  		<div class="text-center">
+	  		  <%= will_paginate @vacancies %>
+	  		</div>
+
 	 	</div>
 	</div>
 </div>
+
+
+<script>
+  $( function() {
+    $( "#slider-range" ).slider({
+      range: true,
+      min: <%= @min_salary_value %>,
+      max: <%= @max_salary_value %>,
+      values: [ <%= @min_salary_value %>, <%= @max_salary_value %> ],
+      slide: function( event, ui ) {
+        $( "input#min_salary" ).val( ui.values[0] );
+        $( "input#max_salary" ).val( ui.values[1] );
+      },
+
+	    change: function(event, ui) {
+	      $('input#min_salary').attr('value', ui.values[0]);
+	      $('input#max_salary').attr('value', ui.values[1]);
+	      }
+    })
+});
+</script>
