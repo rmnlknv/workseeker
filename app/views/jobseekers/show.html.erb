@@ -1,0 +1,24 @@
+<div class="container">
+	<div class="row" style="padding-top: 50px;">
+		<div class="col-md-6 col-md-offset-3">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+			        <div class="panel-title">
+					    <%= @candidate.position %>
+					</div>
+				</div>
+				<div class="panel-body">
+					<h4><strong>Name:</strong> <%= @candidate.name %></h4>
+					<h4><strong>Category:</strong> <%= @candidate.category %></h4>
+					<h4><strong>City:</strong> <%= @candidate.city %></h4>
+					<h4><strong>Expected Salary:</strong> <%= @candidate.salary %>$+</h4>
+					<h4><strong>Experience and Skills:</strong> <%= @candidate.experience %></h4>
+					<H4><strong>English level:</strong> <%= @candidate.english %></H4>
+					<h4><strong>Seniority:</strong> <%= pluralize(@candidate.seniority, 'year') %> of experience</h4>
+					<h4><strong>Expectations from job:</strong> <%= @candidate.expectations %></h4>
+					<h4><strong>Achievements:</strong> <%= @candidate.achievements %></h4>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

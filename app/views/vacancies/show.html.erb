@@ -1,1 +1,39 @@
-<%= @vacancy.title %>
+<div class="container">
+	<div class="row" style="padding-top: 50px;">
+		<div class="col-md-6 col-md-offset-1">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+			        <div class="panel-title">
+					    <%= @vacancy.title %><span class="pull-right">Date: <%= @vacancy.created_at.strftime('%d/%m/%y') %></span>
+					</div>
+				</div>
+				<div class="panel-body">
+					<h4><strong>Category:</strong> <%= @vacancy.category %></h4>
+					<h4><strong>City:</strong> <%= @vacancy.city %></h4>
+					<h4><strong>Proposal salary:</strong> <%= @vacancy.salary %>$</h4>
+					<h4><strong>Description:</strong> <%= @vacancy.description %></h4>
+				</div>
+			</div>
+
+			<%= link_to vacancies_path do %>
+				<div class="btn btn-default"><< Back to vacancies</div>
+			<% end %>
+		</div>
+		<div class="col-md-4 col-md-offset">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+			        <div class="panel-title">
+					    Employer information
+					</div>
+				</div>
+				<div class="panel-body">
+					<h4><strong>Name:</strong> <%= @vacancy.employer.name %></h4>
+					<h4><strong>Company:</strong> <%= @vacancy.employer.company %></h4>
+					<h4><strong>Position:</strong> <%= @vacancy.employer.position %></h4>
+					<h4><strong>Contact e-mail:</strong> <%= @vacancy.employer.contact_email %></h4>
+					<h4><strong>Phone number:</strong> <%= @vacancy.employer.phone %></h4>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,7 +1,59 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-3">
-	 	    <h3>Filters by city, salary, technologies</h3>
+	 	    <h3 class="text-center">Filters</h3>
+	 	    <%= form_tag("/candidates", method: "get") do %>
+			<br>
+			  <div class="form-group">
+			    <%= label_tag :min_salary, "Salary range:" %>
+			  </div>
+
+			  <div class="form-group"> 
+			        <%= text_field_tag :min_salary, @min_salary_value, id: 'min_salary', class: 'form-control', style: "width: 100px; display: inline" %> -   
+			        <%= text_field_tag :max_salary, @max_salary_value, id: 'max_salary', class: 'form-control', style: "width: 100px; display: inline" %>      
+			  </div>
+			  
+ 
+			  <div class="form-group" id="slider-salary-range"></div>
+
+
+			<br>
+			  <div class="form-group">
+			  <%= label_tag :category, "Category:" %>
+			  <%= text_field_tag :category, nil, class: 'form-control' %>
+			  </div>
+
+			<br>
+			  <div class="form-group">
+			  <%= label_tag :city, "City:" %>
+			  <%= text_field_tag :city, nil, class: 'form-control' %>
+			  </div>
+
+			<br>
+			  <div class="form-group">
+			  <%= label_tag :english, "English level:" %>
+			  <%= select_tag :english, options_for_select(["", "No english", "Pre-Intermediate", "Intermediate", "Upper Intermediate", "Advanced"], ""), {class: "form-control"} %>
+			  </div>
+
+			<br>
+			  <div class="form-group">
+			  <%= label_tag :seniority, "Seniority years range:" %>
+			  </div>
+
+
+			  <div class="form-group"> 
+			        <%= text_field_tag :min_seniority, @min_seniority_value, id: 'min_seniority', class: 'form-control', style: "width: 100px; display: inline" %> -   
+			        <%= text_field_tag :max_seniority, @max_seniority_value, id: 'max_seniority', class: 'form-control', style: "width: 100px; display: inline" %>      
+			  </div>
+			  
+ 
+			  <div class="form-group" id="slider-seniority-range"></div>
+
+			  <div class="form-group text-center">
+			  	<%= submit_tag "Search", class: 'btn btn-success' %>
+			  </div>
+			<% end %>
+
 			
 	 	</div>
 
@@ -11,21 +63,36 @@
 	  		    <div class="panel panel-default">
 			     <div class="panel-heading">
 			        <div class="panel-title">
-			        	<%= link_to candidate.name, '#' %> <span class="pull-right salary"><%= candidate.salary %>$</span>
+			        	<%= link_to candidate.position, candidate %> <span class="pull-right salary">Salary: <%= candidate.salary %>$+</span>
 			        </div>
 			      </div>
 			      <div class="panel-body">
+  			      	<div class="row">
+			        	<div class="col-md-4"><strong>Name:</strong> <%= candidate.name %></div>
+			        	<div class="col-md-4 col-md-offset-4"><strong>English:</strong> <%= candidate.english %></div>
+			        </div>
 			      	<div class="row">
 			        	<div class="col-md-4"><strong>Category:</strong> <%= candidate.category %></div>
 			        	<div class="col-md-4 col-md-offset-4"><strong>City:</strong> <%= candidate.city %></div>
 			        </div>
+			        <div class="row">
+			            <div class="col-md-4"><strong>Seniority:</strong> 
+				            <% if candidate.seniority == 0 %>
+				              No experience
+				            <% else %>
+				              <%= pluralize(candidate.seniority, 'year') %>
+				            <% end %>
+			        	</div>
+			        </div>
 			      <hr>
-			      <p><h4><strong>About</strong></h4></p>
+			      <p><h4><strong>Experience</strong></h4></p>
 			      <p><%= truncate(candidate.experience, :length => 50, :separator => ' ') %></p>
 			      <hr>
 			        <div class="row">
 			          <div class="col-md-4">
-			          	<div class="btn btn-default">Show profile</div>
+			          	<%= link_to candidate do %>
+			              <div class="btn btn-default">Show profile</div>
+			            <% end %>
 			          </div>
 			        </div>
 			      </div>
@@ -33,8 +100,46 @@
 	  		<% end %>
 
 	  		<div class="text-center">
+	  		  <%= will_paginate @candidates %>
 	  		</div>
 
 	 	</div>
 	</div>
 </div>
+
+
+<script>
+  $( function() {
+    $( "#slider-salary-range" ).slider({
+      range: true,
+      min: <%= @min_salary_value %>,
+      max: <%= @max_salary_value %>,
+      values: [ <%= @min_salary_value %>, <%= @max_salary_value %> ],
+      slide: function( event, ui ) {
+        $( "input#min_salary" ).val( ui.values[0] );
+        $( "input#max_salary" ).val( ui.values[1] );
+      },
+
+	    change: function(event, ui) {
+	      $('input#min_salary').attr('value', ui.values[0]);
+	      $('input#max_salary').attr('value', ui.values[1]);
+	      }
+    });
+
+    $( "#slider-seniority-range" ).slider({
+      range: true,
+      min: <%= @min_seniority_value %>,
+      max: <%= @max_seniority_value %>,
+      values: [ <%= @min_seniority_value %>, <%= @max_seniority_value %> ],
+      slide: function( event, ui ) {
+        $( "input#min_seniority" ).val( ui.values[0] );
+        $( "input#max_seniority" ).val( ui.values[1] );
+      },
+
+	    change: function(event, ui) {
+	      $('input#min_seniority').attr('value', ui.values[0]);
+	      $('input#max_seniority').attr('value', ui.values[1]);
+	      }
+    })
+});
+</script>

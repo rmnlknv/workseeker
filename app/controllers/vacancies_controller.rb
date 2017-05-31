@@ -8,7 +8,7 @@ class VacanciesController < ApplicationController
     @max_salary_value = Vacancy.maximum(:salary)
 
     #@vacancies = Vacancy.all
-    @vacancies = Vacancy.where(nil).paginate(page: params[:page], per_page: 2).order('vacancies.created_at DESC') # creates an anonymous scope
+    @vacancies = Vacancy.where(nil).paginate(page: params[:page], per_page: 5).order('vacancies.created_at DESC') # creates an anonymous scope
     @vacancies = @vacancies.salary(params[:min_salary], params[:max_salary]) if params[:min_salary].present? && params[:max_salary].present?
     @vacancies = @vacancies.city(params[:city]) if params[:city].present?
     @vacancies = @vacancies.category(params[:category].downcase) if params[:category].present?

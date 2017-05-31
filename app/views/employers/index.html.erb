@@ -1,0 +1,39 @@
+<div class="container">
+	<div class="row">
+	    <div class="col-md-6 col-md-offset-3">
+			<h1>Employers</h1>
+	  		<% @employers.each do |employer| %>
+	  		    <div class="panel panel-default">
+			     <div class="panel-heading">
+			        <div class="panel-title">
+			        	<%= employer.name %>
+			        </div>
+			      </div>
+			      <div class="panel-body">
+  			      	<div class="row">
+			        	<div class="col-md-6"><strong>Company:</strong> <%= employer.company %></div>
+			        </div>
+			        <div class="row">
+			        	<div class="col-md-6"><strong>Position:</strong> <%= employer.position %></div>
+			        </div>
+			      	<div class="row">
+			        	<div class="col-md-6"><strong>City:</strong> <%= employer.city %></div>
+			        </div>
+			        <div class="row">
+			          <div class="col-md-4">
+			          	<%= link_to "#" do %>
+			              <div class="btn btn-default">Show profile</div>
+			            <% end %>
+			          </div>
+			        </div>
+			      </div>
+			    </div>
+	  		<% end %>
+
+	  		<div class="text-center">
+	  		  <%= will_paginate @employers %>
+	  		</div>
+
+	 	</div>
+	</div>
+</div>
