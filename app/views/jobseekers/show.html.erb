@@ -19,6 +19,20 @@
 					<h4><strong>Achievements:</strong> <%= @candidate.achievements %></h4>
 				</div>
 			</div>
+
+			<%= link_to candidates_path do %>
+				<div class="btn btn-default"><< Back to candidates</div>
+			<% end %>
+
+			<div class="item pull-right">
+			    <% if @candidate.id != current_user.id && current_user.type == "Employer" %>
+				     <div class="item text-center">
+				   <%= link_to conversations_path(sender_id: current_user.id, recipient_id: @candidate.id), method: 'post' do %>
+				   		<div class="btn btn-primary">Write a message</div>
+				   	<% end %>
+				 </div>
+				  <% end %>
+			</div>
 		</div>
 	</div>
 </div>

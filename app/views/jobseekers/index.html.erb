@@ -20,7 +20,7 @@
 			<br>
 			  <div class="form-group">
 			  <%= label_tag :category, "Category:" %>
-			  <%= text_field_tag :category, nil, class: 'form-control' %>
+        	  <%= select_tag :category, options_for_select([" "] + Category.all.map { |c| c.name }), {class: "form-control"} %>
 			  </div>
 
 			<br>

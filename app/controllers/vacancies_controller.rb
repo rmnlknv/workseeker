@@ -1,9 +1,6 @@
 class VacanciesController < ApplicationController
-  def index
-    @vacancies = current_user.vacancies.order('vacancies.created_at DESC')
-  end
 
-  def list
+  def index
     @min_salary_value = Vacancy.minimum(:salary)
     @max_salary_value = Vacancy.maximum(:salary)
 
@@ -15,9 +12,18 @@ class VacanciesController < ApplicationController
     #@vacancies = Vacancy.all.order('vacancies.created_at DESC')
   end
 
+  def list
+    @vacancies = current_user.vacancies.order('vacancies.created_at DESC')
+  end
+
 
   def new
     @vacancy = Vacancy.new
+    @categories = Category.all
+  end
+
+  def edit
+    @vacancy = Vacancy.find_by_id(params[:id])
     @categories = Category.all
   end
 
@@ -32,10 +38,34 @@ class VacanciesController < ApplicationController
     end
   end
 
+  def update
+    @vacancy = Vacancy.find_by_id(params[:id])
+
+    if @vacancy.update(vacancy_params)
+      flash[:notice] = 'Vacancy was successfully updated.'
+      redirect_to @vacancy
+    else
+      flash[:alert] = 'Error has been occured while updating vacancy.'
+      render :edit
+    end
+  end
+
   def show
     @vacancy = Vacancy.find_by_id(params[:id])
   end
-end
+
+  def destroy
+    @vacancy = Vacancy.find_by_id(params[:id])
+    if @vacancy.destroy
+      flash[:notice] = 'Vacancy was successfully destroyed.' 
+      redirect_to my_vacancies_url
+    else
+      flash[:alert] = 'Some error has been occured.'
+      redirect_to my_vacancies_url
+    end
+
+  end
+
 
 
   private
@@ -43,6 +73,8 @@ end
     def vacancy_params
       params.require(:vacancy).permit(:title, :city, :description, :category, :salary)
     end
+
+end
 
 =begin
   def edit

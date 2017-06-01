@@ -1,22 +1,40 @@
-<table summary="Vacancy form fields">
-  <tr>
-    <th><%= f.label(:title, "Title") %></th>
-    <td><%= f.text_field(:title) %></td>
-  </tr>
-  <tr>
-    <th><%= f.label(:salary, "Salary") %></th>
-    <td><%= f.text_field(:salary) %></td>
-  </tr>
-  <tr>
-    <th><%= f.label(:city, "City") %></th>
-    <td><%= f.text_field(:city) %></td>
-  </tr>
-  <tr>
-    <th><%= f.label(:description) %></th>
-    <td><%= f.text_area(:description) %></td>
-  </tr>
-  <tr>
-    <th><%= f.label(:category, "") %></th>
-    <td><%= f.select(:category, @categories.map {|c| c.name }) %></td>
-  </tr>
-</table>
+<%= form_for(vacancy) do |f| %>
+  <% if vacancy.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(vacancy.errors.count, "error") %> prohibited this vacancy from being saved:</h2>
+
+      <ul>
+      <% vacancy.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+        <div class="panel-body">
+          <div class="form-group">
+            <%= f.label :title %>
+            <%= f.text_field :title, class: 'form-control' %>
+          </div>
+          <div class="form-group">
+            <%= f.label :salary %>
+            <%= f.text_field :salary, class: 'form-control' %>
+          </div>
+          <div class="form-group">
+            <%= f.label :city %>
+            <%= f.text_field :city, class: 'form-control' %>
+          </div>
+          <div class="form-group">
+            <%= f.label :description %>
+            <%= f.text_area :description, class: 'form-control' %>
+          </div>      
+          <div class="form-group">
+            <%= f.label(:category, "") %>
+            <%= f.select(:category, @categories.map {|c| c.name }, {}, {class: "form-control"}) %>
+          </div>  
+          <div class="form-group text-center">
+          <%= f.submit nil, { class: 'btn btn-success' } %>
+          </div>                                        
+        </div>
+<% end %>
+

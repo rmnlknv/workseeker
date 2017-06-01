@@ -1,1 +1,35 @@
-<h1><%= @employer.name %></h1>
+<div class="container">
+	<div class="row" style="padding-top: 50px;">
+		<div class="col-md-6 col-md-offset-3">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+			        <div class="panel-title">
+					    Employer information
+					</div>
+				</div>
+				<div class="panel-body">
+					<h4><strong>Name:</strong> <%= @employer.name %></h4>
+					<h4><strong>Company:</strong> <%= @employer.company %></h4>
+					<h4><strong>Position:</strong> <%= @employer.position %></h4>
+					<h4><strong>City:</strong> <%= @employer.city %></h4>
+					<H4><strong>Contact e-mail:</strong> <%= @employer.contact_email %></H4>
+					<h4><strong>Contact phone number:</strong> <%= @employer.phone %></h4>
+				</div>
+			</div>
+
+			<%= link_to employers_path do %>
+				<div class="btn btn-default"><< Back to employers</div>
+			<% end %>
+
+			<div class="item pull-right">
+			    <% if @employer.id != current_user.id && current_user.type == "Jobseeker" %>
+				     <div class="item text-center">
+				   <%= link_to conversations_path(sender_id: current_user.id, recipient_id: @employer.id), method: 'post' do %>
+				   		<div class="btn btn-primary">Write a message</div>
+				   	<% end %>
+				 </div>
+				  <% end %>
+			</div>
+		</div>
+	</div>
+</div>
