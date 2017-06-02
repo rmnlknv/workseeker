@@ -1,6 +1,13 @@
 <div class="container">
-	<h1>Home page</h1>
-	<h3>Description</h3>
+<div class="row">
+	<div class="col-md-6 col-md-offset-3">
+		<div class="panel panel-default" style="background-color: rgba(255,255,255,0.80);">
+			<h4 class="text-center">Welcome to the best place for searching IT job.</h4>
+			<h4 class="text-center">Here you can find a lot of vacancies, if you are a jobseeker.</h4>
+			<h4 class="text-center">Or a lot of candidates, if you are an employer.</h4>
+		</div>
+	</div>
+</div>
 	<% unless user_signed_in? %>
 		<div class="row">
 	    	<div class="col-md-6 col-md-offset-3">
@@ -43,3 +50,32 @@
 		</div>
 	<% end %>
 </div>
+
+<style>
+	body{ 
+    	-webkit-transition: all 0.6s ease;
+    	-moz-transition: all 0.6s ease;
+    	-o-transition: all 0.6s ease;
+    	transition: all 0.6s ease;
+    	}
+</style>
+
+<script>
+	$("body").addClass("background-image-1 fill");
+</script>
+
+<script>
+	var toggleSlide = function(){
+	  if ($("body").hasClass("background-image-1")) {
+	  	$("body.background-image-1").removeClass();
+	  	$("body").addClass("background-image-2 fill");
+	  } else if ($("body").hasClass("background-image-2")) {
+	  			$("body.background-image-2").removeClass();
+	  			$("body").addClass("background-image-3 fill");
+	  } else if ($("body").hasClass("background-image-3")) {
+	  			$("body.background-image-3").removeClass();
+	  			$("body").addClass("background-image-1 fill");
+	  }
+	}
+	setInterval(toggleSlide, 3000);
+</script>

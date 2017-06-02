@@ -9,8 +9,17 @@
         </div>
 
         <div class="form-group"> 
-              <%= text_field_tag :min_salary, @min_salary_value, id: 'min_salary', class: 'form-control', style: "width: 100px; display: inline" %> -   
-              <%= text_field_tag :max_salary, @max_salary_value, id: 'max_salary', class: 'form-control', style: "width: 100px; display: inline" %>      
+            <% if defined? @min_salary_from_form %>
+              <%= text_field_tag :min_salary, @min_salary_from_form, id: 'min_salary', class: 'form-control', style: "width: 100px; display: inline" %> 
+            <% else %>
+              <%= text_field_tag :min_salary, @min_salary_value, id: 'min_salary', class: 'form-control', style: "width: 100px; display: inline" %> 
+            <% end %>
+            -
+            <% if defined? @max_salary_from_form %>
+              <%= text_field_tag :max_salary, @max_salary_from_form, id: 'max_salary', class: 'form-control', style: "width: 100px; display: inline" %>
+            <% else %>   
+              <%= text_field_tag :max_salary, @max_salary_value, id: 'max_salary', class: 'form-control', style: "width: 100px; display: inline" %> 
+            <% end %>
         </div>
         
  
@@ -83,9 +92,11 @@
   $( function() {
     $( "#slider-range" ).slider({
       range: true,
-      min: <%= @min_salary_value %>,
-      max: <%= @max_salary_value %>,
-      values: [ <%= @min_salary_value %>, <%= @max_salary_value %> ],
+        min: <%= @min_salary_value %>,
+        max: <%= @max_salary_value %>,
+
+
+      values: [ <% if defined? @min_salary_from_form %> <%= @min_salary_from_form %> <% else %> <%= @min_salary_value %> <% end %>, <% if defined? @max_salary_from_form %><%= @max_salary_from_form %><% else %> <%= @max_salary_value %> <% end %> ],
       slide: function( event, ui ) {
         $( "input#min_salary" ).val( ui.values[0] );
         $( "input#max_salary" ).val( ui.values[1] );

@@ -1,4 +1,5 @@
 class JobseekersController < ApplicationController
+	  before_action :authenticate_user!
 	def index
 		@min_salary_value = Jobseeker.minimum(:salary)
     	@max_salary_value = Jobseeker.maximum(:salary)

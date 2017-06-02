@@ -27,11 +27,16 @@
 			<div class="item pull-right">
 			    <% if @candidate.id != current_user.id && current_user.type == "Employer" %>
 				     <div class="item text-center">
-				   <%= link_to conversations_path(sender_id: current_user.id, recipient_id: @candidate.id), method: 'post' do %>
-				   		<div class="btn btn-primary">Write a message</div>
-				   	<% end %>
-				 </div>
-				  <% end %>
+				   		<%= link_to conversations_path(sender_id: current_user.id, recipient_id: @candidate.id), method: 'post' do %>
+				   			<div class="btn btn-primary">Write a message</div>
+				   		<% end %>
+				   		<% if !@candidate.cv_url.nil? %>
+				 			<%= link_to @candidate.cv_url, target: "_blank" do %>
+				 				<div class="btn btn-default">Download CV</div>
+				 			<% end %>
+				 	 <% end %>
+				 	</div>
+				<% end %>
 			</div>
 		</div>
 	</div>
