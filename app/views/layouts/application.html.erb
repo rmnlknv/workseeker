@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   </head>
 
+
 <!--
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
@@ -67,10 +68,12 @@
     </div>
   </div>
 </nav>
-
 -->
 
+
   <body>
+
+
 <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -84,6 +87,18 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <% if user_signed_in? %>
+            <div class="navbar-left">
+              <ul class="nav navbar-nav">
+                <li><%= link_to 'Inbox', conversations_path %></li>
+                <% if current_user.type == "Jobseeker" %>
+                  <li><%= link_to 'Vacancies', vacancies_path %></li>
+                  <li><%= link_to 'Employers', employers_path %></li>
+                <% elsif current_user.type == "Employer" %>
+                  <li><%= link_to 'Candidates', candidates_path %></li>
+                  <li><%= link_to 'My vacancies', my_vacancies_path %></li>
+                <% end %>
+              </ul>
+            </div>
             <div class="navbar-form navbar-right" style="color: white;">
             <% unless current_user.name == "" %> Hello, <%= current_user.name %> <% end %> <%= link_to edit_user_registration_path do %> <div class="btn btn-success">My profile</div> <% end %> 
             <%= link_to(destroy_user_session_path, :method => :delete) do %> <div class="btn btn-danger">Logout</div>  <% end %> 
@@ -107,7 +122,7 @@
           <% end %>
            </div>
           </div>
-        </div><!--/.navbar-collapse -->
+        </div>
     </nav>
 
 <%= flash_messages %>
