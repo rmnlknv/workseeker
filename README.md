@@ -1,24 +1,4 @@
-# README
+# Description
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Completed web application is a platform where jobseekers can observe list of opened positions and requirements for these positions. When jobseeker has found suitable vacancy – he is able to contact with an employer via messaging system. For employers, this is also a very useful platform, because it allows them to explore the list of specialists looking for work, their skills and experience and contact them in order to offer a job. 
+Web application contains filters and message system.
